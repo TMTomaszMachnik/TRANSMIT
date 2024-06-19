@@ -3,8 +3,10 @@
 
 struct Keyword asKeywordList[MAX_KEYWORD_NR]={
     {CALLIB,"callib"},
-    {GOTO, "goto" },			
-		{CALC, "calc"}
+    {GOTO, "goto"},			
+		{CALC, "calc"},
+		{ID, "ID"},
+		{CLEAR, "CLEAR"}
 };
 
 extern struct Token asToken[MAX_TOKEN_NR];

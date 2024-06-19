@@ -77,30 +77,20 @@ void Reciever_GetStringCopy(char * ucDestination){
 ///////////////////////////////////TRANSMIT///////////////////////////////////////////
 
 char Transmiter_GetCharacterFromBuffer(){
-	
-			char cReturnChar;
-			
-			if(sTransmiterBuffer.cData[sTransmiterBuffer.ucCharCtr]==NULL){
-				if(sTransmiterBuffer.fLastCharacter!='\r'){
-					sTransmiterBuffer.fLastCharacter='\r';
-					sTransmiterBuffer.ucCharCtr++;
-				}
-				else{
-					sTransmiterBuffer.fLastCharacter=NULL;
-					sTransmiterBuffer.eStatus=FREE;
-					//sTransmiterBuffer.ucCharCtr=0;
-				}
-				cReturnChar=sTransmiterBuffer.fLastCharacter;
-			}
-			else{
-				cReturnChar=sTransmiterBuffer.cData[sTransmiterBuffer.ucCharCtr];
-				sTransmiterBuffer.ucCharCtr++;
-				if(sTransmiterBuffer.ucCharCtr>TRANSMITER_SIZE){
-					//sTransmiterBuffer.ucCharCtr=0;
-					sTransmiterBuffer.eStatus=FREE;
-				}
-			}
-	return cReturnChar;
+	if(sTransmiterBuffer.fLastCharacter==1){
+		sTransmiterBuffer.eStatus=FREE;
+		sTransmiterBuffer.fLastCharacter=0;
+		return NULL;
+	}
+	else if(sTransmiterBuffer.cData[sTransmiterBuffer.ucCharCtr]==NULL){
+		sTransmiterBuffer.fLastCharacter=1;
+		return '\r';
+	}
+	else{
+		char cDataBufor=sTransmiterBuffer.cData[sTransmiterBuffer.ucCharCtr];
+		sTransmiterBuffer.ucCharCtr++;
+		return cDataBufor;
+	}	
 }
 
 void Transmiter_SendString(char cString[]){
